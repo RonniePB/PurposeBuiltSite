@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Purpose Built MFG — Industrial 3D Printing, Jonesboro AR</title>
+  <meta name="description" content="Purpose Built MFG delivers industrial-grade 3D printing solutions to local businesses in Jonesboro, AR. Custom parts, fast turnaround, carbon fiber capable." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ────────────────────────────────────────────────── */
+    :root {
+      --bg:        #0e0e0f;
+      --surface:   #161618;
+      --border:    #2a2a2e;
+      --muted:     #6b6b72;
+      --body:      #c8c8cc;
+      --white:     #f0f0f2;
+      --accent:    #cc1111;       /* logo red */
+      --accent-dk: #a50e0e;
+
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+
+      --max: 1100px;
+      --gutter: clamp(1.25rem, 5vw, 3rem);
+    }
+
+    /* ── RESET ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--body);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── LAYOUT HELPERS ────────────────────────────────────────── */
+    .wrap {
+      max-width: var(--max);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+    section { padding-block: clamp(3.5rem, 8vw, 6rem); }
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .divider {
+      width: 3rem;
+      height: 3px;
+      background: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    /* ── NAV ───────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(14,14,15,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .nav-logo-img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
+    }
+    .nav-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--white);
+      padding: 0.5rem 1.1rem;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent-dk); }
+
+    /* ── HERO ──────────────────────────────────────────────────── */
+    #home {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      padding-block: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Signature element: diagonal grid-line texture — industrial graph paper */
+    #home::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(224,92,26,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(224,92,26,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    #home::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 200px;
+      background: linear-gradient(to bottom, transparent, var(--bg));
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 2px;
+      background: var(--accent);
+    }
+    .hero-heading {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 9vw, 7rem);
+      font-weight: 800;
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .hero-heading em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--body);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent-dk); }
+    .btn-ghost {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      color: var(--body);
+      padding: 0.85rem 2rem;
+      border-radius: 3px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--muted); color: var(--white); }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-logo-display {
+      width: clamp(220px, 28vw, 380px);
+      opacity: 0.92;
+      filter: drop-shadow(0 4px 32px rgba(204,17,17,0.25));
+    }
+    @media (max-width: 820px) {
+      .hero-layout { grid-template-columns: 1fr; }
+      .hero-logo-display { display: none; }
+    }
+    .caps-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding-block: 1.25rem;
+      overflow: hidden;
+    }
+    .caps-bar-inner {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cap-item {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .cap-item::before {
+      content: '';
+      display: block;
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* ── SERVICES ──────────────────────────────────────────────── */
+    #services { background: var(--surface); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 3rem;
+    }
+    .service-card {
+      background: var(--surface);
+      padding: 2rem;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .service-card:hover { background: #1c1c1f; }
+    .service-number {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .service-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .service-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── PORTFOLIO ─────────────────────────────────────────────── */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .portfolio-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .portfolio-card:hover { border-color: var(--accent); }
+    .portfolio-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .portfolio-info {
+      padding: 1.25rem;
+    }
+    .portfolio-tag {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+    .portfolio-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+
+    /* ── ABOUT ─────────────────────────────────────────────────── */
+    #about { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+    .about-body p { margin-bottom: 1rem; font-size: 0.95rem; }
+    .about-body p:last-child { margin-bottom: 0; }
+    .team-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .team-member {
+      background: var(--surface);
+      padding: 1.25rem 1.5rem;
+    }
+    .team-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+    .team-role {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── CONTACT ───────────────────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+    .contact-blurb {
+      font-size: 0.95rem;
+      color: var(--body);
+      margin-bottom: 2rem;
+    }
+    .contact-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .contact-line {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    .contact-line span {
+      color: var(--white);
+      margin-left: 0.5rem;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    label {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    input, textarea, select {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      padding: 0.65rem 0.9rem;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    textarea { resize: vertical; min-height: 120px; }
+    select option { background: var(--surface); }
+    .btn-submit {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-self: flex-start;
+    }
+    .btn-submit:hover { background: var(--accent-dk); }
+
+    /* ── FOOTER ────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding-block: 2rem;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .footer-email {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .footer-email:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ────────────────────────────────────────────── */
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ── REDUCED MOTION ────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="wrap nav-inner">
+      <a href="#home" class="nav-logo">
+        <img src="logo.jpg" alt="Purpose Built MFG" class="nav-logo-img" />
+        <span class="nav-name">Purpose Built <span style="color:var(--accent)">MFG</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Get a Quote</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home">
+    <div class="wrap">
+      <div class="hero-layout">
+        <div class="hero-content">
+        <div class="hero-eyebrow">Design. Model. Print. Solve. — Jonesboro, AR</div>
+        <h1 class="hero-heading">
+          Built for<br>
+          <em>the job,</em><br>
+          not the shelf.
+        </h1>
+        <p class="hero-sub">
+          Purpose Built MFG prints production-grade parts for local businesses — 
+          brackets, mounts, fixtures, custom components. Carbon fiber capable. 
+          Fast turnaround. No minimums.
+        </p>
+        <div class="hero-actions">
+          <a href="#portfolio" class="btn-primary">See What We Print</a>
+          <a href="#contact" class="btn-ghost">Get a Quote</a>
+        </div>
+        </div><!-- /.hero-content -->
+        <img src="logo.jpg" alt="Purpose Built MFG" class="hero-logo-display" />
+      </div><!-- /.hero-layout -->
+    </div>
+  </section>
+
+  <!-- CAPABILITIES BAR -->
+  <div class="caps-bar">
+    <div class="wrap caps-bar-inner">
+      <span class="cap-item">Carbon Fiber</span>
+      <span class="cap-item">Multi-Material</span>
+      <span class="cap-item">Custom Fixtures</span>
+      <span class="cap-item">Rapid Prototyping</span>
+      <span class="cap-item">HVAC &amp; Industrial</span>
+      <span class="cap-item">Same-Week Turnaround</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-heading">Services</h2>
+      <div class="divider"></div>
+      <p style="max-width:560px;font-size:0.95rem;">
+        We work directly with local businesses to design and print parts that solve real problems — 
+        fast, at a price that makes sense for small operations.
+      </p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-number">01</div>
+          <div class="service-title">Custom Part Printing</div>
+          <p class="service-desc">Brackets, mounts, housings, adapters, and replacement parts. If it fits on the bed and you can describe it, we can print it.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-number">02</div>
+          <div class="service-title">Rapid Prototyping</div>
+          <p class="service-desc">Turn an idea into a physical part in 24–48 hours. Test fit, form, and function before you commit to tooling or fabrication.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-number">03</div>
+          <div class="service-title">Production Runs</div>
+          <p class="service-desc">Small-batch manufacturing for parts you need repeatedly. Consistent quality, no minimums, no setup fees.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-number">04</div>
+          <div class="service-title">Design Assist</div>
+          <p class="service-desc">Don't have a CAD file? Describe the part or bring in the old one. We'll reverse-engineer or design from scratch.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-number">05</div>
+          <div class="service-title">Carbon Fiber Parts</div>
+          <p class="service-desc">High-strength, lightweight parts in carbon fiber composite. Ideal for structural brackets, tool holders, and load-bearing components.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-number">06</div>
+          <div class="service-title">On-Site Consultation</div>
+          <p class="service-desc">We come to you. Walk us through the problem in your shop, on your equipment, and we'll spec the right solution on the spot.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="wrap">
+      <div class="section-label">Recent Work</div>
+      <h2 class="section-heading">Portfolio</h2>
+      <div class="divider"></div>
+      <p style="max-width:560px;font-size:0.95rem;">
+        A sample of what's come off the machine. Every part here was built for a specific problem — 
+        no shelf models, no generic demos.
+      </p>
+      <div class="portfolio-grid">
+        <div class="portfolio-card">
+          <div class="portfolio-img">Photo Coming Soon</div>
+          <div class="portfolio-info">
+            <div class="portfolio-tag">HVAC</div>
+            <div class="portfolio-name">Duct Adapter — Custom Transition</div>
+          </div>
+        </div>
+        <div class="portfolio-card">
+          <div class="portfolio-img">Photo Coming Soon</div>
+          <div class="portfolio-info">
+            <div class="portfolio-tag">Automotive</div>
+            <div class="portfolio-name">Sensor Bracket — Carbon Fiber</div>
+          </div>
+        </div>
+        <div class="portfolio-card">
+          <div class="portfolio-img">Photo Coming Soon</div>
+          <div class="portfolio-info">
+            <div class="portfolio-tag">Contractor</div>
+            <div class="portfolio-name">Tool Organizer — Jobsite Rack</div>
+          </div>
+        </div>
+        <div class="portfolio-card">
+          <div class="portfolio-img">Photo Coming Soon</div>
+          <div class="portfolio-info">
+            <div class="portfolio-tag">Restaurant</div>
+            <div class="portfolio-name">Equipment Mount — Replacement Part</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-label">Who We Are</div>
+      <h2 class="section-heading">About</h2>
+      <div class="divider"></div>
+      <div class="about-grid">
+        <div class="about-body">
+          <p>
+            Purpose Built MFG is a Jonesboro, AR-based 3D printing operation focused on 
+            one thing: making useful parts for businesses that need them. We're not a 
+            hobbyist shop — we run industrial-grade equipment capable of carbon fiber, 
+            multi-material, and high-temp filaments.
+          </p>
+          <p>
+            We work directly with HVAC contractors, auto shops, restaurant owners, and 
+            tradespeople across the region. If you've ever paid too much for a replacement 
+            part, waited weeks for something simple, or been told "we don't make that 
+            anymore" — that's exactly who we built this for.
+          </p>
+          <p>
+            Every job is quoted honestly, built to spec, and delivered fast. No sales 
+            process, no middle tier. You talk to the people who run the machines.
+          </p>
+        </div>
+        <div>
+          <div class="team-list">
+            <div class="team-member">
+              <div class="team-name">Ronnie</div>
+              <div class="team-role">Co-Founder — Technical Lead</div>
+            </div>
+            <div class="team-member">
+              <div class="team-name">Hayden</div>
+              <div class="team-role">Co-Founder</div>
+            </div>
+            <div class="team-member">
+              <div class="team-name">Phillip</div>
+              <div class="team-role">Partner — Sales &amp; Operations</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-label">Work With Us</div>
+      <h2 class="section-heading">Get a Quote</h2>
+      <div class="divider"></div>
+      <div class="contact-grid">
+        <div>
+          <p class="contact-blurb">
+            Tell us what you need. We'll get back to you same day with a price 
+            and a timeline. No commitment required.
+          </p>
+          <div class="contact-detail">
+            <div class="contact-line">Email<span>solutions@purposebuiltmfg.com</span></div>
+            <div class="contact-line">Location<span>Jonesboro, AR</span></div>
+            <div class="contact-line">Turnaround<span>Most parts 24–72 hours</span></div>
+          </div>
+        </div>
+        <form
+          class="contact-form"
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST"
+        >
+          <!-- SWAP: replace YOUR_FORM_ID with your Formspree form ID -->
+          <!-- Free tier: 50 submissions/month — sign up at formspree.io -->
+          <div class="form-row">
+            <div class="field-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="field-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+          </div>
+          <div class="field-group">
+            <label for="business">Business / Industry</label>
+            <input type="text" id="business" name="business" placeholder="e.g. HVAC contractor, restaurant, auto shop" />
+          </div>
+          <div class="field-group">
+            <label for="type">What do you need?</label>
+            <select id="type" name="type">
+              <option value="">Select one</option>
+              <option>Custom part / replacement</option>
+              <option>Prototype / design assist</option>
+              <option>Production run</option>
+              <option>Not sure — want to talk it through</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="message">Details</label>
+            <textarea id="message" name="message" placeholder="Describe the part, dimensions if you know them, quantity, and any constraints (material, temperature, load, etc.)"></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send Request</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap footer-inner">
+      <span class="footer-copy">© 2026 Purpose Built MFG, LLC — Jonesboro, AR</span>
+      <a href="mailto:solutions@purposebuiltmfg.com" class="footer-email">solutions@purposebuiltmfg.com</a>
+    </div>
+  </footer>
+
+</body>
+</html>
