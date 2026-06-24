@@ -739,13 +739,7 @@
             <div class="contact-line">Turnaround<span>Most parts 24–72 hours</span></div>
           </div>
         </div>
-        <form
-          class="contact-form"
-          action="https://formspree.io/f/mzdldpyn"
-          method="POST"
-        >
-          <!-- SWAP: replace YOUR_FORM_ID with your Formspree form ID -->
-          <!-- Free tier: 50 submissions/month — sign up at formspree.io -->
+        <form id="quote-form" class="contact-form">
           <div class="form-row">
             <div class="field-group">
               <label for="name">Name</label>
@@ -774,8 +768,71 @@
             <label for="message">Details</label>
             <textarea id="message" name="message" placeholder="Describe the part, dimensions if you know them, quantity, and any constraints (material, temperature, load, etc.)"></textarea>
           </div>
-          <button type="submit" class="btn-submit">Send Request</button>
+          <button type="submit" class="btn-submit" id="submit-btn">Send Request</button>
+          <div id="form-status" style="display:none;"></div>
         </form>
+
+        <script>
+          const form = document.getElementById('quote-form');
+          const btn = document.getElementById('submit-btn');
+          const status = document.getElementById('form-status');
+
+          form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+
+            const data = new FormData(form);
+
+            try {
+              const res = await fetch('https://formspree.io/f/mzdldpyn', {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+              });
+
+              if (res.ok) {
+                form.style.display = 'none';
+                status.style.display = 'block';
+                status.innerHTML = `
+                  <div style="
+                    border: 1px solid var(--accent);
+                    padding: 2rem;
+                    border-radius: 3px;
+                    background: var(--surface);
+                  ">
+                    <div style="
+                      font-family: var(--font-display);
+                      font-size: 1.4rem;
+                      font-weight: 800;
+                      text-transform: uppercase;
+                      color: var(--white);
+                      margin-bottom: 0.5rem;
+                    ">Request Received</div>
+                    <p style="font-size:0.95rem;color:var(--body);">
+                      We'll get back to you same day with a price and timeline.
+                    </p>
+                  </div>`;
+              } else {
+                btn.textContent = 'Send Request';
+                btn.disabled = false;
+                status.style.display = 'block';
+                status.style.color = 'var(--accent)';
+                status.style.fontSize = '0.85rem';
+                status.style.marginTop = '0.5rem';
+                status.textContent = 'Something went wrong. Email us directly at solutions@purposebuiltmfg.com';
+              }
+            } catch(err) {
+              btn.textContent = 'Send Request';
+              btn.disabled = false;
+              status.style.display = 'block';
+              status.style.color = 'var(--accent)';
+              status.style.fontSize = '0.85rem';
+              status.style.marginTop = '0.5rem';
+              status.textContent = 'Something went wrong. Email us directly at solutions@purposebuiltmfg.com';
+            }
+          });
+        </script>
       </div>
     </div>
   </section>
