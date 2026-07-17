@@ -184,7 +184,8 @@
       width: 100%;
       height: 100%;
       display: block;
-      transform: rotateY(0deg);
+      transform: rotateY(0deg) translateZ(0);
+      backface-visibility: hidden;
       will-change: transform;
     }
     #page-content {
@@ -939,12 +940,20 @@
     // coin turning) based on how far down the page you've scrolled — 0% at the
     // very top, 100% at the very bottom. Tied to a whole number of full turns
     // so it always lands front-facing again at the bottom, same as the top.
+    //
+    // The angle is eased toward its target every frame (rather than snapped
+    // directly to each scroll reading) because mobile browsers fire scroll
+    // events in irregular bursts during momentum scrolling — snapping directly
+    // to those readings looks stepped/jumpy on phones. Easing smooths that out
+    // while still settling on the exact target once scrolling stops.
     (function () {
       const badge = document.querySelector('.hero-bg-badge');
       if (!badge) return;
       const FULL_TURNS = 1; // whole rotations from top of page to bottom
+      const EASE = 0.15; // higher = snappier, lower = smoother/laggier
       let maxScroll = 1;
-      let ticking = false;
+      let targetAngle = 0;
+      let currentAngle = 0;
 
       function computeMaxScroll() {
         maxScroll = Math.max(
@@ -953,23 +962,30 @@
         );
       }
 
-      function updateRotation() {
+      function computeTarget() {
         const progress = Math.min(window.scrollY / maxScroll, 1);
-        const angle = progress * 360 * FULL_TURNS;
-        badge.style.transform = `rotateY(${angle}deg)`;
-        ticking = false;
+        targetAngle = progress * 360 * FULL_TURNS;
+      }
+
+      function tick() {
+        const diff = targetAngle - currentAngle;
+        currentAngle += Math.abs(diff) < 0.05 ? diff : diff * EASE;
+        badge.style.transform = `rotateY(${currentAngle}deg) translateZ(0)`;
+        requestAnimationFrame(tick);
       }
 
       computeMaxScroll();
-      window.addEventListener('load', computeMaxScroll);
-      window.addEventListener('resize', computeMaxScroll, { passive: true });
-      window.addEventListener('scroll', function () {
-        if (!ticking) {
-          requestAnimationFrame(updateRotation);
-          ticking = true;
-        }
+      computeTarget();
+      window.addEventListener('load', function () {
+        computeMaxScroll();
+        computeTarget();
+      });
+      window.addEventListener('resize', function () {
+        computeMaxScroll();
+        computeTarget();
       }, { passive: true });
-      updateRotation();
+      window.addEventListener('scroll', computeTarget, { passive: true });
+      requestAnimationFrame(tick);
     })();
   </script>
 
