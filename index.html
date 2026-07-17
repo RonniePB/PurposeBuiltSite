@@ -38,6 +38,19 @@
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
     }
+    /* Signature element: diagonal grid-line texture — industrial graph paper.
+       Fixed across the whole site, not just the hero. */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(224,92,26,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(224,92,26,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 0;
+      pointer-events: none;
+    }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
 
@@ -145,17 +158,6 @@
       padding-block: 0;
       position: relative;
       overflow: hidden;
-    }
-    /* Signature element: diagonal grid-line texture — industrial graph paper */
-    #home::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(224,92,26,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(224,92,26,0.04) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
     }
     #home::after {
       content: '';
@@ -330,7 +332,6 @@
     }
 
     /* ── SERVICES ──────────────────────────────────────────────── */
-    #services { background: var(--surface); }
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -420,7 +421,6 @@
     }
 
     /* ── ABOUT ─────────────────────────────────────────────────── */
-    #about { background: var(--surface); }
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
