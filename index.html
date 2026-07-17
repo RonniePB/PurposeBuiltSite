@@ -936,16 +936,33 @@
 
   <script>
     // Rotate the fixed background badge on its vertical axis (like a standing
-    // coin turning) as the page is scrolled, up or down, anywhere on the site.
+    // coin turning) based on how far down the page you've scrolled — 0% at the
+    // very top, 100% at the very bottom. Tied to a whole number of full turns
+    // so it always lands front-facing again at the bottom, same as the top.
     (function () {
       const badge = document.querySelector('.hero-bg-badge');
       if (!badge) return;
+      const FULL_TURNS = 1; // whole rotations from top of page to bottom
+      let maxScroll = 1;
       let ticking = false;
+
+      function computeMaxScroll() {
+        maxScroll = Math.max(
+          document.documentElement.scrollHeight - window.innerHeight,
+          1
+        );
+      }
+
       function updateRotation() {
-        const angle = window.scrollY * 0.25;
+        const progress = Math.min(window.scrollY / maxScroll, 1);
+        const angle = progress * 360 * FULL_TURNS;
         badge.style.transform = `rotateY(${angle}deg)`;
         ticking = false;
       }
+
+      computeMaxScroll();
+      window.addEventListener('load', computeMaxScroll);
+      window.addEventListener('resize', computeMaxScroll, { passive: true });
       window.addEventListener('scroll', function () {
         if (!ticking) {
           requestAnimationFrame(updateRotation);
