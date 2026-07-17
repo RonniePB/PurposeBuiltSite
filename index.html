@@ -182,13 +182,6 @@
       color: var(--accent);
       margin-bottom: 1.5rem;
     }
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 2rem;
-      height: 2px;
-      background: var(--accent);
-    }
     .hero-heading {
       font-family: var(--font-display);
       font-size: clamp(3.2rem, 9vw, 7rem);
@@ -207,8 +200,17 @@
       font-size: 1.1rem;
       color: var(--body);
       max-width: 520px;
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.1rem;
       line-height: 1.7;
+    }
+    .hero-turnaround {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
     }
     .hero-actions {
       display: flex;
@@ -286,6 +288,28 @@
       width: 6px; height: 6px;
       background: var(--accent);
       border-radius: 50%;
+    }
+
+    /* ── DIFFERENTIATORS ───────────────────────────────────────── */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    .diff-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+    .diff-desc {
+      font-size: 0.95rem;
+      color: var(--body);
+      line-height: 1.65;
     }
 
     /* ── SERVICES ──────────────────────────────────────────────── */
@@ -563,9 +587,10 @@
         </h1>
         <p class="hero-sub">
           Purpose Built MFG prints production-grade parts for local businesses — 
-          brackets, mounts, fixtures, custom components. Carbon fiber capable. 
-          1 week standard, 3-day rush available. No minimums.
+          brackets, mounts, fixtures, custom components — built from a broad range 
+          of engineering-grade materials. $20 minimum on custom orders.
         </p>
+        <div class="hero-turnaround">1 Week Standard &middot; 3-Day Rush Available</div>
         <div class="hero-actions">
           <a href="#portfolio" class="btn-primary">See What We Print</a>
           <a href="#contact" class="btn-ghost">Get a Quote</a>
@@ -588,6 +613,32 @@
       <span class="cap-item">1-Week Turnaround</span>
     </div>
   </div>
+
+  <!-- DIFFERENTIATORS -->
+  <section id="difference">
+    <div class="wrap">
+      <div class="section-label">Why Purpose Built</div>
+      <h2 class="section-heading">The Difference</h2>
+      <div class="divider"></div>
+      <div class="diff-grid">
+        <div>
+          <div class="diff-title">Real Response Time</div>
+          <p class="diff-desc">
+            You get a same-day answer and an honest timeline — not a ticket number. 
+            Call, text, or email, and you'll talk to the people actually running the machines.
+          </p>
+        </div>
+        <div>
+          <div class="diff-title">Materials We Test, Not Just Trust</div>
+          <p class="diff-desc">
+            Every filament we run gets put through real-world stress before it ever 
+            goes into your part — not just a spec sheet. What we tell you it can handle, 
+            it can handle.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- SERVICES -->
   <section id="services">
@@ -613,7 +664,7 @@
         <div class="service-card">
           <div class="service-number">03</div>
           <div class="service-title">Production Runs</div>
-          <p class="service-desc">Small-batch manufacturing for parts you need repeatedly. Consistent quality, no minimums, no setup fees.</p>
+          <p class="service-desc">Small or large batch manufacturing for parts you need repeatedly — same file, same specs, same quality every time.</p>
         </div>
         <div class="service-card">
           <div class="service-number">04</div>
