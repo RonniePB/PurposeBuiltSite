@@ -937,9 +937,12 @@
 
   <script>
     // Rotate the fixed background badge on its vertical axis (like a standing
-    // coin turning) based on how far down the page you've scrolled — 0% at the
-    // very top, 100% at the very bottom. Tied to a whole number of full turns
-    // so it always lands front-facing again at the bottom, same as the top.
+    // coin catching the light) based on how far down the page you've scrolled.
+    // It wobbles back and forth rather than spinning a full 360° — a true 3D
+    // Y-axis rotation goes edge-on (and effectively vanishes) at 90° and 270°,
+    // so a full spin makes it disappear twice per rotation. Staying within a
+    // capped tilt range means it's always at least partly visible, and it
+    // still starts and ends front-facing at the very top and bottom.
     //
     // The angle is eased toward its target every frame (rather than snapped
     // directly to each scroll reading) because mobile browsers fire scroll
@@ -949,8 +952,9 @@
     (function () {
       const badge = document.querySelector('.hero-bg-badge');
       if (!badge) return;
-      const FULL_TURNS = 1; // whole rotations from top of page to bottom
-      const EASE = 0.15; // higher = snappier, lower = smoother/laggier
+      const MAX_TILT = 55;  // degrees either side of front-facing — never 90°
+      const CYCLES = 3;     // full back-and-forth wobbles from top to bottom
+      const EASE = 0.15;    // higher = snappier, lower = smoother/laggier
       let maxScroll = 1;
       let targetAngle = 0;
       let currentAngle = 0;
@@ -964,7 +968,7 @@
 
       function computeTarget() {
         const progress = Math.min(window.scrollY / maxScroll, 1);
-        targetAngle = progress * 360 * FULL_TURNS;
+        targetAngle = MAX_TILT * Math.sin(progress * Math.PI * 2 * CYCLES);
       }
 
       function tick() {
