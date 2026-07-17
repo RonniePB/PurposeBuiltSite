@@ -180,14 +180,39 @@
       z-index: 0;
       pointer-events: none;
     }
+    /* The rotating group — face + rim move together as one rigid "coin" */
+    .hero-bg-badge-coin {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transform: rotateY(0deg);
+      will-change: transform;
+    }
     .hero-bg-badge {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       display: block;
-      transform: rotateY(0deg) translateZ(0);
-      backface-visibility: hidden;
-      will-change: transform;
+      transform: translateZ(18px);
     }
+    /* Two thin strips standing perpendicular to the face, positioned at the
+       left/right extremes of the circle — a disc viewed edge-on is just a
+       rectangle the height of its diameter, so this is the coin's rim. It's
+       what stays visible when the face itself rotates edge-on and vanishes. */
+    .hero-bg-badge-edge {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 36px;
+      height: 100%;
+      margin-left: -18px;
+      background: linear-gradient(to bottom, transparent, var(--accent) 12%, var(--accent) 88%, transparent);
+      border-radius: 50% / 3%;
+    }
+    .hero-bg-badge-edge--a { transform: rotateY(90deg) translateZ(450px); }
+    .hero-bg-badge-edge--b { transform: rotateY(-90deg) translateZ(450px); }
     #page-content {
       position: relative;
       z-index: 1;
@@ -583,7 +608,11 @@
 <body>
 
   <div class="hero-bg-badge-wrap">
-    <img src="logo-circle.webp" alt="" class="hero-bg-badge" aria-hidden="true" />
+    <div class="hero-bg-badge-coin">
+      <img src="logo-circle.webp" alt="" class="hero-bg-badge" aria-hidden="true" />
+      <div class="hero-bg-badge-edge hero-bg-badge-edge--a"></div>
+      <div class="hero-bg-badge-edge hero-bg-badge-edge--b"></div>
+    </div>
   </div>
 
   <div id="page-content">
@@ -936,13 +965,12 @@
   </div><!-- /#page-content -->
 
   <script>
-    // Rotate the fixed background badge on its vertical axis (like a standing
-    // coin catching the light) based on how far down the page you've scrolled.
-    // It wobbles back and forth rather than spinning a full 360° — a true 3D
-    // Y-axis rotation goes edge-on (and effectively vanishes) at 90° and 270°,
-    // so a full spin makes it disappear twice per rotation. Staying within a
-    // capped tilt range means it's always at least partly visible, and it
-    // still starts and ends front-facing at the very top and bottom.
+    // Rotate the fixed background "coin" (face + rim) on its vertical axis
+    // based on how far down the page you've scrolled — 0% at the very top,
+    // 100% at the very bottom, landing on a whole number of full turns so it's
+    // always front-facing again at the bottom, same as the top. The rim strips
+    // built into the coin keep something visible even when the face itself
+    // rotates edge-on at 90°/270°, instead of vanishing to nothing.
     //
     // The angle is eased toward its target every frame (rather than snapped
     // directly to each scroll reading) because mobile browsers fire scroll
@@ -950,11 +978,10 @@
     // to those readings looks stepped/jumpy on phones. Easing smooths that out
     // while still settling on the exact target once scrolling stops.
     (function () {
-      const badge = document.querySelector('.hero-bg-badge');
-      if (!badge) return;
-      const MAX_TILT = 55;  // degrees either side of front-facing — never 90°
-      const CYCLES = 3;     // full back-and-forth wobbles from top to bottom
-      const EASE = 0.15;    // higher = snappier, lower = smoother/laggier
+      const coin = document.querySelector('.hero-bg-badge-coin');
+      if (!coin) return;
+      const FULL_TURNS = 1;  // whole rotations from top of page to bottom
+      const EASE = 0.15;     // higher = snappier, lower = smoother/laggier
       let maxScroll = 1;
       let targetAngle = 0;
       let currentAngle = 0;
@@ -968,13 +995,13 @@
 
       function computeTarget() {
         const progress = Math.min(window.scrollY / maxScroll, 1);
-        targetAngle = MAX_TILT * Math.sin(progress * Math.PI * 2 * CYCLES);
+        targetAngle = progress * 360 * FULL_TURNS;
       }
 
       function tick() {
         const diff = targetAngle - currentAngle;
         currentAngle += Math.abs(diff) < 0.05 ? diff : diff * EASE;
-        badge.style.transform = `rotateY(${currentAngle}deg) translateZ(0)`;
+        coin.style.transform = `rotateY(${currentAngle}deg)`;
         requestAnimationFrame(tick);
       }
 
