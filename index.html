@@ -405,6 +405,25 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-img-main {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .portfolio-img-secondary {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      width: 35%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border: 2px solid var(--bg);
+      border-radius: 3px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
     .portfolio-info {
       padding: 1.25rem;
@@ -425,6 +444,12 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
       color: var(--white);
+    }
+    .portfolio-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-top: 0.5rem;
     }
 
     /* ── ABOUT ─────────────────────────────────────────────────── */
@@ -729,10 +754,14 @@
       </p>
       <div class="portfolio-grid">
         <div class="portfolio-card">
-          <div class="portfolio-img">Photo Coming Soon</div>
+          <div class="portfolio-img">
+            <img src="trophy-toppers.jpg" alt="Full-color trophy toppers for the 2026 Mississippi River Monsters Mega Bucs Pro Series, Memphis, TN." class="portfolio-img-main" />
+            <img src="trophy-toppers-stage.jpg" alt="Trophy toppers staged on-site for the 2026 Mississippi River Monsters Mega Bucs Pro Series, Memphis, TN." class="portfolio-img-secondary" />
+          </div>
           <div class="portfolio-info">
-            <div class="portfolio-tag">HVAC</div>
-            <div class="portfolio-name">Duct Adapter — Custom Transition</div>
+            <div class="portfolio-tag">Events</div>
+            <div class="portfolio-name">Mississippi River Monsters — Trophy Toppers</div>
+            <div class="portfolio-desc">Full-color trophy toppers for the 2026 Mississippi River Monsters Mega Bucs Pro Series, Memphis, TN.</div>
           </div>
         </div>
         <div class="portfolio-card">
